@@ -1,0 +1,14 @@
+USE Epicor905
+GO
+
+select j.JobNum,
+p.PartNum,
+p.PartDescription,
+j.ProdQty,
+j.QtyCompleted,
+CONVERT(VARCHAR(10), j.JobCompletionDate, 101) AS JobCompDate,
+p.TypeCode from JobHead j
+join Part p on j.PartNum = p.PartNum and j.Company = p.Company
+and p.TypeCode like 'M%'
+and j.Company = 'HTI'
+order by j.JobCompletionDate desc
