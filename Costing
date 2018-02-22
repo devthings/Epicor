@@ -1,0 +1,12 @@
+select j.JobNum, p.PartNum, p.PartDescription,  j.ProdQty,j.QtyCompleted, CONVERT(VARCHAR(10), j.JobCompletionDate, 101) AS JobCompDate, p.TypeCode,
+ja.TLAMaterialCost + ja.LLAMaterialCost AS MaterialTotal,
+ja.TLALaborCost + ja.LLALaborCost AS LaborTotal,
+ja.TLABurdenCost + ja.LLABurdenCost AS BurdenTotal,
+ja.TLASubcontractCost + ja.LLASubcontractCost AS SubContractTotal,
+ja.TLAMtlBurCost + ja.LLAMtlBurCost AS MtlBurdenTotal
+from JobHead j
+join Part p on j.PartNum = p.PartNum and j.Company = p.Company
+and p.TypeCode like 'M%'
+and j.Company = 'HTI'
+join JobAsmbl ja on ja.JobNum = j.JobNum and ja.PartNum = j.PartNum
+order by j.JobCompletionDate desc
