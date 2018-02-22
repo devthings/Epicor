@@ -1,2 +1,2 @@
 # Epicor
-Epicor SQL Queries
+SQL queries for Epicor
